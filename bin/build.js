@@ -19,6 +19,7 @@ const editLink =  async (pwd, output,content,version)=>{
         if(typeof($(this).attr().merge) === 'undefined' || $(this).attr().merge == 'false'){
             unmergeArr.push($(this).attr().href)
         }
+        
         concatdir(pwd, output, unmergeArr)
         unmergeArr.forEach(item=>{
             console.log(item);

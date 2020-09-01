@@ -44,6 +44,8 @@ program
         await build(pwd, version, output)
       }
       clearBuild(pwd,version,opts.output)
+      // rmdir(`${pwd}/${opts.output}`).catch(e=>{console.log(e,123);})
+      // build(pwd, version, opts.output).catch(e=>{console.log(e);})
     }
     
 });

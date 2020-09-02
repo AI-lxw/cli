@@ -9,7 +9,7 @@ const returnCssPath = require('../lib/returnCssPath').returnCssPath
 const sassTocss = require('../lib/sassTocss').asyncReadSass
 const lessTocss = require('../lib/lessToCss').asyncToCss
 const asyncReadFile = require('../lib/readfile').asyncReadFile
-const hbs = require('hbs')
+const hbsHelper = require('../lib/hbsHelper').hbsHelper
 const isExist = require('../lib/utils').isExist
 const hostname = '127.0.0.1';
 let sendData = async (_path, res, dir, ext)=>{
@@ -34,17 +34,12 @@ let sendData = async (_path, res, dir, ext)=>{
 }
 
 exports.start = (port = 7011, pwd) =>{
-    hbs.registerPartials(pwd + '/views')
-
-    const server = http.createServer(function (req, res) {
+    const server = http.createServer(async function (req, res) {
         let _path = req.url
         if(_path == '/'){
             _path = 'index.html'
-            // _path = path.join(pwd,_path)
-            // console.log(_path);
-            // if(!isExist(_path)){
-            //     _path = 'index.hbs'
-            // }
+            res.end(await hbsHelper(`${pwd}/${_path}`,pwd))
+            return
         }
         _path = path.join(pwd,_path)
         _path = pathFomat(_path)
@@ -52,11 +47,7 @@ exports.start = (port = 7011, pwd) =>{
         let dir = fileName(_path)
         sendData(_path, res, dir, ext).then(_path=>{
             console.log(_path,1111111);
-            
             let Header = mime.getType(_path);
-            if (mime.getType(_path) == 'text/x-handlebars-template') {
-                Header = 'text/html'
-            }
             res.setHeader('Content-Type', Header);
             preadfile(_path).then((data)=>{
                 res.end(data);

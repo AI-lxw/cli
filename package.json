@@ -10,12 +10,13 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0"
   },
-  "name": "project",
-  "version": "1.0.0",
-  "main": "main.js",
+  "name": "losingweigth",
+  "version": "1.0.1",
+  "main": "./bin/main.js",
   "directories": {
     "lib": "lib"
   },
+  "bin" : { "elf" : "./bin/main.js" } ,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"

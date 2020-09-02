@@ -9,6 +9,7 @@ const {version} = require('../package.json')
 const commander = require('commander'); 
 const program = new commander.Command();
 const pwd = process.cwd()
+exports.pwd = pwd
 program
   .command('start')
   .option('-p,--port <port_number>', 'web port')

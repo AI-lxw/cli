@@ -1,30 +1,21 @@
-const Handlebars = require("handlebars");
-const readfile = require('./lib/readfile').asyncReadFile
-Handlebars.registerHelper("import", function(items, options) {
-    console.log(items);
-    console.log(options);
-    
-    const itemsAsHtml = items.map(item => "<li>" + options.fn(item) + "</li>");
-    return "<ul>\n" + itemsAsHtml.join("\n") + "\n</ul>";
-});
-let hbs = async ()=>{
-    let c = await readfile('./index.html')
-    const template = Handlebars.compile(c);
-    console.log(template(
-             [
-              {
-                firstname: "你好",
-                lastname: "Katz",
-              },
-              {
-                firstname: "Carl",
-                lastname: "Lerche",
-              },
-              {
-                firstname: "Alan",
-                lastname: "Johnson",
-              },
-            ],
-    ));
+const fs = require('fs')
+const concatdir = async (pwd, output, array)=>{
+  console.log(array);
+  array.forEach(item=>{
+      // if (typeof(item) === 'undefined' || this.isHttp(item)) {
+      //     return
+      // }
+      let arr = item.split('/')
+      let dirarr = arr.slice(1,arr.length - 1);
+      let str = `${pwd}/${output}`
+      const reducer = (acc, cur) => acc + '/' + cur ;
+      // console.log(dirarr.reduce(reducer));
+      // console.log(dirarr.reduce(reducer, str));
+      fs.mkdir(dirarr.reduce(reducer, str),{recursive:true},(e)=>{
+          if(e){
+              console.log(e);
+          }
+      });
+  })
 }
-hbs()
+concatdir('/home/lxw/work/project','test',[ '"/footer/img/a.jpg"', '"/footer/css/footer.css"', '"/img/c.jpg"' ])

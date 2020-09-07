@@ -11,7 +11,10 @@ const lessTocss = require('../lib/lessToCss').asyncToCss
 const asyncReadFile = require('../lib/readfile').asyncReadFile
 const hbsHelper = require('../lib/hbsHelper').hbsHelper
 const isExist = require('../lib/utils').isExist
+const cssmodule = require('../lib/cssmodule').anlCss
+const cheerio = require('cheerio')
 const hostname = '127.0.0.1';
+
 let sendData = async (_path, res, dir, ext)=>{
     if (ext == 'css') {
         _path = returnCssPath(_path, dir)
@@ -38,7 +41,8 @@ exports.start = (port = 7011, pwd) =>{
         let _path = req.url
         if(_path == '/'){
             _path = 'index.html'
-            res.end(await hbsHelper(`${pwd}/${_path}`,pwd))
+            let content = await hbsHelper(`${pwd}/${_path}`,pwd)
+            res.end(content)
             return
         }
         _path = path.join(pwd,_path)
@@ -46,7 +50,7 @@ exports.start = (port = 7011, pwd) =>{
         let ext = extName(_path)
         let dir = fileName(_path)
         sendData(_path, res, dir, ext).then(_path=>{
-            console.log(_path,1111111);
+            console.log(_path);
             let Header = mime.getType(_path);
             res.setHeader('Content-Type', Header);
             preadfile(_path).then((data)=>{

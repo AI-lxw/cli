@@ -5,6 +5,7 @@ const transform = require('../lib/transformjs').transform
 const sassTocss = require('../lib/sassTocss').sassTocss
 const copy = require('../lib/copyimg').copy
 const rmdir = require('../lib/utils').rmdir
+const compile = require('../lib/compileTs/compile').compile
 const {version} = require('../package.json')
 const commander = require('commander'); 
 const program = new commander.Command();
@@ -55,6 +56,13 @@ program
   .description('copy the img')
   .action((output) => {
     copy(pwd, output)
+});
+program
+  .command('compile <output>')
+  .description('compile typescript')
+  .action((output) => {
+    console.log(output);
+    compile(pwd, output)
 });
 
 program.parse(process.argv);

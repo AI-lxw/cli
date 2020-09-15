@@ -6,7 +6,7 @@ const {readfile} = require('../lib/readfile')
 const {hbsHelper} = require('../lib/compileJs/hbsHelper')
 const {returnCssPath} = require('../lib/compileCss/returnCssPath')
 const {sassTocss} = require('../lib/compileCss/sassTocss')
-const lessTocss = require('../lib/compileCss/lessToCss').lessToCss
+const {lessToCss} = require('../lib/compileCss/lessToCss')
 const hostname = '127.0.0.1';
 
 let sendData = async (_path, res, dir, ext)=>{
@@ -21,7 +21,7 @@ let sendData = async (_path, res, dir, ext)=>{
         }
         if(exten == 'less'){
             let data = await readfile(_path)
-            res.end(await lessTocss(data))
+            res.end(await lessToCss(data))
         }
         if(exten == 'null'){
             console.log(`${_path}样式表不存在`);

@@ -4,9 +4,9 @@ const { makedir, src} = require('../lib/utils');
 const {transform} = require('../lib/compileJs/transformjs')
 const {copyImg} = require('../lib/copyimg')
 const {hbsHelper} = require('../lib/compileJs/hbsHelper')
-const mergeCss = require('../lib/compileCss/mergeCss').merge
 const {editHtml} = require('../lib/editHtml/index')
 const {cssUrl} = require('../lib/editHtml/cssUrl')
+const mergeCss = require('../lib/compileCss/mergeCss').merge
 exports.build = async (pwd, version ,output) =>{
     //创建build目录
     await makedir(`${pwd}/${output}`)

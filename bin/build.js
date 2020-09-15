@@ -1,20 +1,14 @@
 const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path')
-const { extName, fileName } = require('../lib/utils');
-const { url } = require('inspector');
-const transform = require('../lib/transformjs').transform
-const mergeCss = require('../lib/mergeCss').merge
-const copyImg = require('../lib/copyimg').copy
-const src = require('../lib/utils').src
-const makedir = require('../lib/utils').makedir
-const isHttp = require('../lib/utils').isHttp
-const concatdir = require('../lib/utils').concatdir
-const saveData = require('../lib/mergeCss').saveData
-const addVersion = require('../lib/mergeCss').addVersion
-const hbsHelper = require('../lib/hbsHelper').hbsHelper
-const readfile = require('../lib/readfile').asyncReadFile
-const secondProcess = require('../lib/secondprocess').secondProcess
+const { extName, fileName, makedir, isHttp, src ,concatdir} = require('../lib/utils');
+const {transform} = require('../lib/compileJs/transformjs')
+const {copyImg} = require('../lib/copyimg')
+const {saveData} = require('../lib/compileCss/mergeCss')
+const {addVersion} = require('../lib/compileCss/mergeCss')
+const {hbsHelper} = require('../lib/compileJs/hbsHelper')
+const {readfile} = require('../lib/readfile')
+const mergeCss = require('../lib/compileCss/mergeCss').merge
 
 //分析link
 const editLink =  async (pwd, output, content, version)=>{

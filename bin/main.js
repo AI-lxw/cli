@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 const httpserver = require('./sever')
-const build = require('./build').build
-const transform = require('../lib/transformjs').transform
-const sassTocss = require('../lib/sassTocss').sassTocss
-const copy = require('../lib/copyimg').copy
-const rmdir = require('../lib/utils').rmdir
-const compile = require('../lib/compileTs/compile').compile
-const {version} = require('../package.json')
 const commander = require('commander'); 
+const {build} = require('./build')
+const {transform} = require('../lib/compileJs/transformjs')
+const {sassTocss} = require('../lib/compileCss/sassTocss')
+const {copy} = require('../lib/copyimg')
+const {rmdir} = require('../lib/utils')
+const {compile} = require('../lib/compileTs/compile')
+const {version} = require('../package.json')
 const program = new commander.Command();
 const pwd = process.cwd()
 exports.pwd = pwd
